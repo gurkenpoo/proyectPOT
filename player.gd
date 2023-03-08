@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+signal health_changed(health_value)
+
 @onready var camera = $Camera3D
 @onready var anim_player = $AnimationPlayer
 @onready var fuegoDisparo = $Camera3D/pistol/fuego
@@ -81,6 +83,7 @@ func recieve_damage():
 	if health <= 0:
 		health = 3
 		position = Vector3.ZERO
+	health_changed.emit(health)
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "shoot":
